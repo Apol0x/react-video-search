@@ -1,8 +1,9 @@
-import  React, {Fragment}  from 'react';
+/* eslint-disable */
+import React, {Fragment} from 'react';
 import Card from '../components/Card/Cards';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CONSTANTS from '../constants/index';
 /* Contenedor que devolvera Lista de Cartas */
-const API = "http://www.omdbapi.com/?i=tt3896198&apikey=8bfa91f4";
 
 class List extends React.Component {
    /**
@@ -23,7 +24,7 @@ class List extends React.Component {
     */
    async getData() {
       const {searchTerm}=this.state;
-      const res = await fetch(`${API}&s=${searchTerm != '' ? searchTerm : 'batman' }`)
+      const res = await fetch(`${CONSTANTS.API_URL}&s=${searchTerm != '' ? searchTerm : 'batman' }`)
       const resJson = await res.json(res);
       return resJson;
    }
@@ -82,10 +83,10 @@ class List extends React.Component {
                <div className="col-md-4 offset-md4 p-4">
                   <form action="" onSubmit={(e) => this.handleSubmit(e)}>
                      <input type="text"
-                        name="serach"
-                        id="input-search"
-                        className="form-control"
-                        placeholder="Search"
+                         name="serach"
+                         id="input-search"
+                         className="form-control"
+                         placeholder="Search"
                         autoFocus
                         onChange={e => this.handleSearchInput(e)}
                      />
