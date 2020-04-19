@@ -9,7 +9,7 @@ class List extends React.Component {
     */
    constructor() {
       super();
-      this.state = {
+      this.state = { //estados iniciales
          data: [],
          searchTerm: '',
          error: '',
@@ -36,6 +36,10 @@ class List extends React.Component {
       console.log("Componente montado y llamada hecha: ", resJson);
    }
 
+   /**
+    * Capturador del evento submit para realizar la consulta asincrona
+    * @param {texto submiteado para hacer la busqueda} event 
+    */
    async handleSubmit(event){
       event.preventDefault();
       const {searchTerm, error, data} = this.state;
@@ -50,7 +54,10 @@ class List extends React.Component {
       }
       
    }
-
+   /**
+    * Capturador de evento al escribir
+    * @param {texto introducido en el input} text 
+    */
    handleSearchInput(text){
       this.setState({searchTerm: text.target.value});
       console.log(this.state.searchTerm);
