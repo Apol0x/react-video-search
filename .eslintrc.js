@@ -7,7 +7,7 @@ module.exports = {
         es6: true, //Utilice ECMAScript6
         node: true, //Al usar webpack usaremos node
     },
-    parseOptions: { //Al analizar codigo
+    parserOptions: { //Al analizar codigo
         ecmFeatures: {
             jsx: true, //Entienda codigo JSX
         },

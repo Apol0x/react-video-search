@@ -11,7 +11,7 @@ module.exports = {
             {
                 test: /\.js$/, //afectará a todos los archivos js
                 exclude: /node_mudels/, //no se analizara
-                use: ['babel-loader'] //usaran transpilador de babel
+                use: ['babel-loader', 'eslint-loader'] //usaran transpilador de babel y estilizador de codigo eslint
             },
             {
                 test: /\.css$/,
