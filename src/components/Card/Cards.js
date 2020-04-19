@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 /* Componente Carta de pelicula */
 const Card = ({ movie }) => {
     const { Poster, Title, Type, Year } = movie //destructuring del parametro que recibimos
@@ -14,5 +15,15 @@ const Card = ({ movie }) => {
         </div>
     )
 }
+
+Card.propTypes = {
+  movie: PropTypes.shape({
+      Poster: PropTypes.string.isRequired,
+      Title: PropTypes.string.isRequired,
+      Type: PropTypes.string.isRequired,
+      Year: PropTypes.string.isRequired
+  })
+}
+
 
 export default Card;

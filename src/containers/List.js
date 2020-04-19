@@ -14,7 +14,7 @@ class List extends React.Component {
          searchTerm: '',
          error: '',
       }
-   };
+   }
 
    /**
     * función que llama de forma asincrona al json/api para obtener los datos
@@ -24,7 +24,7 @@ class List extends React.Component {
       const res = await fetch(`${API}&s=${searchTerm != '' ? searchTerm : 'batman' }`)
       const resJson = await res.json(res);
       return resJson;
-   };
+   }
    /**
     * metodo de react para cuando el componente se ha montado.
     * llamaremos a getData para obtener los datos y setear con ellos
@@ -42,7 +42,7 @@ class List extends React.Component {
     */
    async handleSubmit(event){
       event.preventDefault();
-      const {searchTerm, error, data} = this.state;
+      const {searchTerm} = this.state;
       if(!searchTerm || searchTerm == ''){
          return this.setState({error: 'Please enter a valid text'});
       }
@@ -61,7 +61,7 @@ class List extends React.Component {
    handleSearchInput(text){
       this.setState({searchTerm: text.target.value});
       console.log(this.state.searchTerm);
-   };
+   }
    
    /**
     * renderizamos el componente
