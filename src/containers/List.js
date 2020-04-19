@@ -70,6 +70,11 @@ class List extends React.Component {
       const { data, error } = this.state; //hacemos destructuring del estado
       return (
          <Fragment>
+            <header className="navbar-dark navbar bg-dark border-bottom border-white">
+               <a href="/" className="navbar-brand">
+                  MOVIE SEARCH
+               </a>
+            </header>
             <div className="row">
                <div className="col-md-4 offset-md4 p-4">
                   <form action="" onSubmit={(e) => this.handleSubmit(e)}>
