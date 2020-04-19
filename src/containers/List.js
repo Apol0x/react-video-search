@@ -1,5 +1,6 @@
 import  React, {Fragment}  from 'react';
 import Card from '../components/Card/Cards';
+import CircularProgress from '@material-ui/core/CircularProgress';
 /* Contenedor que devolvera Lista de Cartas */
 const API = "http://www.omdbapi.com/?i=tt3896198&apikey=8bfa91f4";
 
@@ -13,6 +14,7 @@ class List extends React.Component {
          data: [],
          searchTerm: '',
          error: '',
+         loading: true,
       }
    }
 
@@ -32,7 +34,7 @@ class List extends React.Component {
     */
    async componentDidMount() {
       const resJson = await this.getData();
-      this.setState({ data: resJson.Search })
+      this.setState({ data: resJson.Search, loading: false })
       console.log("Componente montado y llamada hecha: ", resJson);
    }
 
@@ -67,7 +69,7 @@ class List extends React.Component {
     * renderizamos el componente
     */
    render() {
-      const { data, error } = this.state; //hacemos destructuring del estado
+      const { data, error, loading } = this.state; //hacemos destructuring del estado
       return (
          <Fragment>
             <header className="navbar-dark navbar bg-dark border-bottom border-white">
@@ -75,6 +77,7 @@ class List extends React.Component {
                   MOVIE SEARCH
                </a>
             </header>
+            {/* TODO: create input Component */}
             <div className="row">
                <div className="col-md-4 offset-md4 p-4">
                   <form action="" onSubmit={(e) => this.handleSubmit(e)}>
@@ -92,13 +95,14 @@ class List extends React.Component {
                   }
                </div>
             </div>
+            {loading ? <CircularProgress/> :
             <div className="row">
                {
                   data.map((value, index) => { //mapeamos el estado y retornamos pasandole al componente Card el elemento que estamos recorriendo
                      return <Card movie={value} key={index} />
                   })
                }
-            </div>
+            </div>}
          </Fragment>
       )
    }
