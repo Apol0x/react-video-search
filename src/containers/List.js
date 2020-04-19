@@ -1,51 +1,95 @@
-import React from 'react';
+import  React, {Fragment}  from 'react';
 import Card from '../components/Card/Cards';
 /* Contenedor que devolvera Lista de Cartas */
 const API = "http://www.omdbapi.com/?i=tt3896198&apikey=8bfa91f4";
 
 class List extends React.Component {
-    /**
-     * Constructor que creará el estado del componente
-     */
-    constructor() {
-        super();
-        this.state = {
-            data: []
-        }
-    };
+   /**
+    * Constructor que creará el estado del componente
+    */
+   constructor() {
+      super();
+      this.state = {
+         data: [],
+         searchTerm: '',
+         error: '',
+      }
+   };
 
-    /**
-     * función que llama de forma asincrona al json/api para obtener los datos
-     */
-    getData(res) {
-        return res.json();
-    };
-    /**
-     * metodo de react para cuando el componente se ha montado.
-     * llamaremos a getData para obtener los datos y setear con ellos
-     * el estado
-     */
-    async componentDidMount() {
-        const res = await fetch(`${API}&s=batman`)
-        const resJson = await this.getData(res);
-        this.setState({ data: resJson.Search })
-        console.log("Componente montado y llamada hecha: ", res);
-    }
-    /**
-     * renderizamos el componente
-     */
-    render() {
-        const { data } = this.state; //hacemos destructuring del estado
-        return (
+   /**
+    * función que llama de forma asincrona al json/api para obtener los datos
+    */
+   async getData() {
+      const {searchTerm}=this.state;
+      const res = await fetch(`${API}&s=${searchTerm != '' ? searchTerm : 'batman' }`)
+      const resJson = await res.json(res);
+      return resJson;
+   };
+   /**
+    * metodo de react para cuando el componente se ha montado.
+    * llamaremos a getData para obtener los datos y setear con ellos
+    * el estado
+    */
+   async componentDidMount() {
+      const resJson = await this.getData();
+      this.setState({ data: resJson.Search })
+      console.log("Componente montado y llamada hecha: ", resJson);
+   }
+
+   async handleSubmit(event){
+      event.preventDefault();
+      const {searchTerm, error, data} = this.state;
+      if(!searchTerm || searchTerm == ''){
+         return this.setState({error: 'Please enter a valid text'});
+      }
+      const response = await this.getData();
+      if(!response.Search){
+         return this.setState({error: 'No match found'})
+      }else{
+         this.setState({data: response.Search, error: '', searchTerm: ''});
+      }
+      
+   }
+
+   handleSearchInput(text){
+      this.setState({searchTerm: text.target.value});
+      console.log(this.state.searchTerm);
+   };
+   
+   /**
+    * renderizamos el componente
+    */
+   render() {
+      const { data, error } = this.state; //hacemos destructuring del estado
+      return (
+         <Fragment>
             <div className="row">
-                {
-                    data.map(value => { //mapeamos el estado y retornamos pasandole al componente Card el elemento que estamos recorriendo
-                        return <Card movie={value} />
-                    })
-                }
+               <div className="col-md-4 offset-md4 p-4">
+                  <form action="" onSubmit={(e) => this.handleSubmit(e)}>
+                     <input type="text"
+                        name="serach"
+                        id="input-search"
+                        className="form-control"
+                        placeholder="Search"
+                        autoFocus
+                        onChange={e => this.handleSearchInput(e)}
+                     />
+                  </form>
+                  {
+                     error ? <p className="text-white">{error}</p>: null
+                  }
+               </div>
             </div>
-        )
-    }
+            <div className="row">
+               {
+                  data.map(value => { //mapeamos el estado y retornamos pasandole al componente Card el elemento que estamos recorriendo
+                     return <Card movie={value} />
+                  })
+               }
+            </div>
+         </Fragment>
+      )
+   }
 }
 
 export default List;
