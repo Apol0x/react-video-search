@@ -89,8 +89,8 @@ class List extends React.Component {
             </div>
             <div className="row">
                {
-                  data.map(value => { //mapeamos el estado y retornamos pasandole al componente Card el elemento que estamos recorriendo
-                     return <Card movie={value} />
+                  data.map((value, index) => { //mapeamos el estado y retornamos pasandole al componente Card el elemento que estamos recorriendo
+                     return <Card movie={value} key={index} />
                   })
                }
             </div>
