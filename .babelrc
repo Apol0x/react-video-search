@@ -1,0 +1,14 @@
+/* Se encargará transpilar JSX, ECMAScript al JS nativo */
+{
+   "presets": [ //preajustes de la configuracion de babel
+      [
+         "@babel/preset-env",
+         {
+            "targets": { //propiedad para especificar que entornos va trabajar
+               "node": "current"
+            }
+         }
+      ],
+      "@babel/react" //Para entender código JSX
+   ]
+}
