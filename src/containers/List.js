@@ -4,8 +4,8 @@ import Card from '../components/Card/Cards';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import CONSTANTS from '../constants/index';
 /* Contenedor que devolvera Lista de Cartas */
-// TODO: probar hooks
-// TODO: añadir Redux
+// TODO probar hooks
+// TODO añadir Redux
 
 class List extends React.Component {
    /**
@@ -40,7 +40,7 @@ class List extends React.Component {
       this.setState({ data: resJson.Search, loading: false })
       console.log("Componente montado y llamada hecha: ", resJson);
    }
-   // TODO: añadir shouldComponentUpdate
+   // TODO añadir shouldComponentUpdate
    /**
     * Capturador del evento submit para realizar la consulta asincrona
     * @param {texto submiteado para hacer la busqueda} event 
@@ -81,7 +81,7 @@ class List extends React.Component {
                </a>
             </header>
             {
-               // TODO: create input Component
+               // TODO create input Component
             }
             <div className="row">
                <div className="col-md-4 offset-md4 p-4">
